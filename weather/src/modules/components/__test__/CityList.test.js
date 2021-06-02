@@ -49,11 +49,14 @@ describe('CityWeatherList', () => {
 
     const temp = 296.18
 
-    test("should render City in given city details", () => {
+    test("should render city Name correctly", () => {
         const { getByTestId } = render(<CityWeatherList temp={temp} city={city} />)
         expect(getByTestId("name").textContent).toEqual("Baku")
-        expect(getByTestId("temprature").textContent).toEqual(296.18)
 
+    })
+    test("should render city temperature correctly", () => {
+        const { getByTestId } = render(<CityWeatherList temp={temp} city={city} />)
+        expect(getByTestId("temprature").textContent).toEqual(296.18)
 
     })
 })

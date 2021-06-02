@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { weatherService } from '../../service'
+import { CityList } from './CityList'
 import { CityWeatherList } from './CityWeatherList'
 
 export function WeatherForecast() {
@@ -7,8 +8,6 @@ export function WeatherForecast() {
     const [city, setCity] = React.useState('')
     const [cityList, setCityList] = React.useState([])
     const [degreeStatus, setDegreeStatus] = React.useState('Celcius')
-    let temp;
-    console.log(cityList)
 
     const handleCityChange = (evt) => {
         setCity(evt.target.value)
@@ -65,25 +64,8 @@ export function WeatherForecast() {
                     < div className="div" >
 
                         <ul className="list-unstyled">
-                            {cityList.map(({ data }) => {
-                                switch (degreeStatus) {
-                                    case 'Kelvin':
-                                        temp = (data.main.temp * 241).toString() + " K"
-                                        break;
-                                    case 'Celcius':
-                                        temp = (data.main.temp).toString() + " C"
-                                        break;
-                                    case 'Fehrenheight':
-                                        temp = (data.main.temp * 33.8).toString() + " F"
-                                        break;
+                            <CityList cityList={cityList} degreeStatus={degreeStatus} handleRemoveFromCityList={handleRemoveFromCityList}></CityList>
 
-                                    default:
-                                        break;
-                                }
-                                return (
-                                    <CityWeatherList handleRemoveFromCityList={handleRemoveFromCityList} temp={temp} city={data} />
-                                )
-                            })}
                         </ul>
                     </div >
                 </div>
