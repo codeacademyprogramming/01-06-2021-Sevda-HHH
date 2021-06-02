@@ -1,6 +1,6 @@
 import * as  React from 'react'
 
-export function CityWeatherList({ city, temp, degree, handleRemoveFromCityList }) {
+export function CityWeatherList({ city, temp, degree, handleRemoveFromCityList }: any) {
 
     return (
         <>

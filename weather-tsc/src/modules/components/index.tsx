@@ -7,36 +7,38 @@ export function WeatherForecast() {
     const [city, setCity] = React.useState('')
     const [cityList, setCityList] = React.useState([])
     const [degreeStatus, setDegreeStatus] = React.useState('Celcius')
-    let temp;
+    let temp: number | string;
     console.log(cityList)
 
-    const handleCityChange = (evt) => {
+    const handleCityChange = (evt: any) => {
         setCity(evt.target.value)
     }
-    const handleRemoveFromCityList = (cityName) => {
-        console.log(cityList)
-        const newArray = cityList.filter((city) => city.data.name != cityName)
+    const handleRemoveFromCityList = (cityName: string) => {
+        const newArray: Array<never> = cityList.filter((city: any) => (city.data.name) != cityName)
         setCityList(newArray)
     }
-    const handleSubmitWeatherCity = (e) => {
+    const handleSubmitWeatherCity = (e: React.FormEvent) => {
         e.preventDefault();
         let exists = false
         weatherService.getWeatherDataByCityName(city)
             .then((resp) => {
                 if (cityList.length <= 0) {
-                    setCityList([...cityList, resp])
+                    const cityArray: any = [...cityList, resp]
+                    setCityList(cityArray)
                     setCity('')
                 } else {
-                    cityList.map(({ data }) => {
+                    cityList.map(({ data }: any) => {
                         (data.name.toLowerCase()) === (city.toLowerCase()) && (exists = true)
                     })
-                    if (!exists) {
-                        document.querySelector(".warningExists").classList.add("d-none")
+                    const warning: any = document.querySelector(".warningExists")
 
-                        setCityList([...cityList, resp])
+                    if (!exists) {
+                        warning.classList.add("d-none")
+                        const newArr: any = [...cityList, resp]
+                        setCityList(newArr)
                         setCity('')
                     } else {
-                        document.querySelector(".warningExists").classList.remove("d-none")
+                        warning.classList.remove("d-none")
                     }
                 }
 
@@ -45,7 +47,7 @@ export function WeatherForecast() {
             })
     }
 
-    const handleDegreeChange = (degree) => {
+    const handleDegreeChange = (degree: string) => {
         setDegreeStatus(degree)
     }
 
@@ -65,7 +67,7 @@ export function WeatherForecast() {
                     < div className="div" >
 
                         <ul className="list-unstyled">
-                            {cityList.map(({ data }) => {
+                            {cityList.map(({ data }: any) => {
                                 switch (degreeStatus) {
                                     case 'Kelvin':
                                         temp = (data.main.temp * 241).toString() + " K"
